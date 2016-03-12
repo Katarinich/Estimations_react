@@ -3,7 +3,7 @@ App = React.createClass({
 
   getMeteorData() {
     return {
-      blocks: Blocks.find({}).fetch()
+      blocks: Blocks.find().fetch()
     }
   },
 
@@ -15,9 +15,11 @@ App = React.createClass({
 
   render() {
     return (
-      <ul id="records">
-        {this.renderBlocks()}
-      </ul>
+      <div className="container">
+        <ul id="records">
+          {this.renderBlocks()}
+        </ul>
+      </div>
     );
   }
 });

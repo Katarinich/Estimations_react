@@ -20,3 +20,11 @@
 ul {
   list-style-type: none;
 }
+
+.create-new-list-div{
+	position: relative;
+  display: inline-block;
+  text-align: right;
+  margin-top: 7px;
+  margin-left: 15px;
+}

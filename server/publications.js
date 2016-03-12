@@ -1,3 +1,7 @@
-Meteor.publish('blocks', function() {
-  return Blocks.find();
+Meteor.publish('blocks', function(estimationId) {
+  return Blocks.find({estimationId: estimationId});
+});
+
+Meteor.publish('estimations', function() {
+  return Estimations.find();
 });
