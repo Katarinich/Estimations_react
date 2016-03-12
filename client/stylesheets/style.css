@@ -1,0 +1,22 @@
+.record-line{
+  margin-top: 10px;
+}
+
+.record-value-div{
+  vertical-align: top;
+	height: 30px;
+  width: 400px;
+  display: inline-block;
+}
+
+.record-rate-div, .record-hours-div, .record-sum-div{
+  vertical-align: top;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  display: inline-block;
+}
+
+ul {
+  list-style-type: none;
+}
