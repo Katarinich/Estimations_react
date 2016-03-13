@@ -1,7 +1,7 @@
 TypeaheadInput = React.createClass({
   handleBlur: function(event) {
     Meteor.call("blockUpdate", this.props.id, {value: event.target.value});
-    event.target.parentNode.innerHTML = event.target.value;
+    this.props.parentNode.innerHTML = event.target.value;
   },
 
   componentDidMount: function() {
@@ -12,7 +12,7 @@ TypeaheadInput = React.createClass({
 
   render() {
     return(
-      <input className="record-value typeahead mousetrap"
+      <input className="record-value typeahead mousetrap form-control"
         type="text"
         data-source="blocks"
         defaultValue={this.props.value} />
