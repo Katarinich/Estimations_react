@@ -3,21 +3,13 @@ Estimation = React.createClass({
     estimation: React.PropTypes.object.isRequired
   },
 
-  dateCreated() {
-    var dateCreated = moment(this.props.estimation.dateCreated);
-    return dateCreated.format("DD.MM.YYYY hh:mm:ss");
-  },
-
-  dateUpdated() {
-    var dateCreated = moment(this.props.estimation.dateUpdated);
-    return dateCreated.format("DD.MM.YYYY hh:mm:ss");
-  },
-
   render() {
     const estimationLink = '/estimations/' + this.props.estimation._id;
+    var dateCreated = moment(this.props.estimation.dateUpdated).format("DD.MM.YYYY hh:mm:ss");
+    var dateUpdated = moment(this.props.estimation.dateUpdated).format("DD.MM.YYYY hh:mm:ss");
     return (
       <li className="record-line">
-        <a href={estimationLink}>{this.props.estimation.name} </a>{this.dateCreated()} {this.dateUpdated()}
+        <a href={estimationLink}>{this.props.estimation.name} </a>{dateCreated} {dateUpdated}
     </li>
     );
   }
