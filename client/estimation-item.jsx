@@ -3,7 +3,7 @@ EstimationItem = React.createClass({
 
   getMeteorData() {
     return {
-      children: Blocks.find({parentId: this.props.block._id}).fetch()
+      children: Blocks.find({parentId: this.props.block._id}, {sort: {index: 1}}).fetch()
     }
   },
 
@@ -12,11 +12,17 @@ EstimationItem = React.createClass({
   },
 
   renderInput(event) {
-    if(document.getElementsByClassName("record-value").length != 0) return;
+    if(document.getElementsByClassName("record-" + event.target.className.split('-')[1]).length != 0) return;
 
-    var currentValue = event.target.innerHTML;
-    event.target.innerHTML = "";
-    ReactDOM.render(<TypeaheadInput value={currentValue} id={this.props.block._id} parentNode={event.target}/>, event.target);
+    ReactDOM.render(<RecordInput
+      block={this.props.block}
+      parentNode={event.target}
+      valueToEdit={event.target.className.split('-')[1]}
+      callback={this.renderChilds} />, event.target);
+  },
+
+  deleteBlock() {
+    Meteor.call('blockRemove', this.props.block._id);
   },
 
   depth() {
@@ -53,10 +59,10 @@ EstimationItem = React.createClass({
     return (
       <li className="record-line">
         <div className={valueClass} onClick={this.renderInput}>{this.props.block.value}</div>
-        <div className={depth}>{this.props.block.hours}</div>
-        <div className="record-rate-div">{this.props.block.rate}</div>
+        <div className={depth} onClick={this.renderInput}>{this.props.block.hours}</div>
+        <div className="record-rate-div" onClick={this.renderInput}>{this.props.block.rate}</div>
 	      <div className="record-sum-div">{sum}</div>
-        <div className="record-delete-div"><button className="delete">&times;</button></div>
+        <div className="record-delete-div"><button className="delete" onClick={this.deleteBlock}>&times;</button></div>
 
         <ul className="child-records" id={this.props.block._id}>
           {this.renderChilds()}
