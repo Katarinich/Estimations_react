@@ -1,8 +1,11 @@
 RecordInput = React.createClass({
-
   handleBlur: function(event) {
     Meteor.call("blockUpdate", this.props.block._id, {[this.props.valueToEdit]: event.target.value});
-    this.props.parentNode.innerHTML = event.target.value;
+    if(this.props.parentNode) this.props.parentNode.innerHTML = event.target.value;
+    else {
+      Session.set("newBlock", null);
+      document.getElementById(this.props.block.parentId).children[this.props.block.index].children[0].innerHTML = event.target.value;
+    }
   },
 
   componentDidMount: function() {
@@ -20,26 +23,25 @@ RecordInput = React.createClass({
   renderNext(event) {
     if(event.keyCode != 13) return;
 
-    var block = this.props.block;
-    var parentNode = this.props.parentNode.nextSibling;
-
     if(this.props.block.isParent || this.props.valueToEdit == "rate") {
       let newIndex = this.props.block.isParent ? 0 : this.props.block.index + 1;
       let newParent = this.props.block.isParent ? this.props.block._id : this.props.block.parentId;
       Meteor.call("blockInsert", this.props.block.estimationId, newParent, newIndex);
-      var newBlock = Blocks.findOne({parentId: newParent, index: newIndex});
-      block = newBlock;
-      parentNode = document.getElementById(newParent).children[newIndex].children[0];
+      let newBlock = Blocks.findOne({parentId: newParent, index: newIndex});
+      Session.set("newBlock", newBlock._id);
     }
-
-    ReactDOM.render(<RecordInput
-      block={block}
-      parentNode={parentNode}
-      valueToEdit={parentNode.className.split('-')[1]} />, parentNode);
+    else {
+      let block = this.props.block;
+      let parentNode = this.props.parentNode.nextSibling;
+      ReactDOM.render(<RecordInput
+        block={block}
+        parentNode={parentNode}
+        valueToEdit={parentNode.className.split('-')[1]} />, parentNode);
+    }
   },
 
   render() {
-    var classType = "record-" + this.props.valueToEdit + " form control" ;
+    var classType = "record-" + this.props.valueToEdit + " form-control" ;
     if(this.props.valueToEdit == "value") classType += " typeahead mousetrap";
 
     return(

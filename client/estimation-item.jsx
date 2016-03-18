@@ -17,8 +17,7 @@ EstimationItem = React.createClass({
     ReactDOM.render(<RecordInput
       block={this.props.block}
       parentNode={event.target}
-      valueToEdit={event.target.className.split('-')[1]}
-      callback={this.renderChilds} />, event.target);
+      valueToEdit={event.target.className.split('-')[1]} />, event.target);
   },
 
   deleteBlock() {
@@ -58,7 +57,7 @@ EstimationItem = React.createClass({
 
     return (
       <li className="record-line">
-        <div className={valueClass} onClick={this.renderInput}>{this.props.block.value}</div>
+        <div className={valueClass} onClick={this.renderInput}>{Session.get("newBlock") == this.props.block._id ? <RecordInput block={this.props.block} valueToEdit="value"/> : this.props.block.value}</div>
         <div className={depth} onClick={this.renderInput}>{this.props.block.hours}</div>
         <div className="record-rate-div" onClick={this.renderInput}>{this.props.block.rate}</div>
 	      <div className="record-sum-div">{sum}</div>

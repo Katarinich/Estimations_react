@@ -25,6 +25,7 @@
 
 .record-hours, .record-rate, .record-sum, .non-development-input{
     width: 80px;
+    height: 30px;
     display: inline;
 }
 
