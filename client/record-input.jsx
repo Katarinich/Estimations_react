@@ -32,7 +32,10 @@ RecordInput = React.createClass({
     }
     else {
       let block = this.props.block;
-      let parentNode = this.props.parentNode.nextSibling;
+      let parentNode;
+      if(this.props.parentNode) parentNode = this.props.parentNode.nextSibling;
+      else parentNode = document.getElementById(this.props.block.parentId).children[this.props.block.index].children[0].nextSibling;
+
       ReactDOM.render(<RecordInput
         block={block}
         parentNode={parentNode}

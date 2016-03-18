@@ -48,6 +48,58 @@ EstimationItem = React.createClass({
     });
   },
 
+  renderTotal() {
+    if(!this.props.block.isParent) return;
+    var depth = "total-hours-div nt-lvl-" + this.depth();
+
+    return(
+      <div className="record-line">
+        <div className="total-text-div"><b>{this.props.block.value} Total</b></div>
+		    <div className={depth}><b>{this.totalHours()}</b></div>
+		    <div className="total-rate-div"></div>
+		    <div className="total-sum-div"><b>{this.totalSum()}</b></div>
+		  </div>
+    );
+  },
+
+  totalHours() {
+    var result = 0;
+
+    function sumOfBlock(blockId) {
+      Blocks.find({
+        parentId: blockId
+      }).forEach(function(element) {
+        if (element.isParent == false || element.isParent == undefined) {
+          result = result + parseInt(element.hours);
+        } else {
+          sumOfBlock(element._id);
+        }
+      });
+    }
+
+    sumOfBlock(this.props.block._id)
+    return result + "h";
+  },
+
+  totalSum() {
+    var result = 0;
+
+    function sumOfBlock(blockId) {
+      Blocks.find({
+        parentId: blockId
+      }).forEach(function(element) {
+        if (element.isParent == false || element.isParent == undefined) {
+          result = result + (Number(element.rate) * parseInt(element.hours));
+        } else {
+          sumOfBlock(element._id);
+        }
+      });
+    }
+
+    sumOfBlock(this.props.block._id);
+    return result;
+  },
+
   render() {
     var sum = this.props.block.isParent ? "" : this.props.block.hours * this.props.block.rate;
     var depth = "record-hours-div nt-lvl-" + this.depth();
@@ -63,9 +115,12 @@ EstimationItem = React.createClass({
 	      <div className="record-sum-div">{sum}</div>
         <div className="record-delete-div"><button className="delete" onClick={this.deleteBlock}>&times;</button></div>
 
+        //todo change this shit
         <ul className="child-records" id={this.props.block._id}>
           {this.renderChilds()}
         </ul>
+
+        {this.renderTotal()}
       </li>
     );
   }
