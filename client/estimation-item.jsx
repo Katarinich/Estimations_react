@@ -111,11 +111,10 @@ EstimationItem = React.createClass({
       <li className="record-line">
         <div className={valueClass} onClick={this.renderInput}>{Session.get("newBlock") == this.props.block._id ? <RecordInput block={this.props.block} valueToEdit="value"/> : this.props.block.value}</div>
         <div className={depth} onClick={this.renderInput}>{this.props.block.hours}</div>
-        <div className="record-rate-div" onClick={this.renderInput}>{this.props.block.rate}</div>
+        <div className="record-rate-div" onClick={this.renderInput}>{this.props.block.isParent ? "" : this.props.block.rate}</div>
 	      <div className="record-sum-div">{sum}</div>
         <div className="record-delete-div"><button className="delete" onClick={this.deleteBlock}>&times;</button></div>
 
-        //todo change this shit
         <ul className="child-records" id={this.props.block._id}>
           {this.renderChilds()}
         </ul>

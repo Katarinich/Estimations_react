@@ -9,6 +9,25 @@ RecordInput = React.createClass({
   },
 
   componentDidMount: function() {
+    var block = this.props.block;
+    var parentNode =  document.getElementById(this.props.block.parentId).children[this.props.block.index].children[0];
+
+    Mousetrap.bind('ctrl+right', function(e, combo) {
+      e.stopImmediatePropagation();
+
+      e.target.blur();
+      Meteor.call('blockDepose', block._id, 1);
+      Session.set("newBlock", block._id);
+    });
+
+    Mousetrap.bind('ctrl+left', function(e, combo) {
+      e.stopImmediatePropagation();
+
+      e.target.blur();
+      Meteor.call('blockDepose', block._id, -1);
+      Session.set("newBlock", block._id);
+    });
+
     var input = document.getElementsByClassName("record-" + this.props.valueToEdit)[0];
     if(this.props.valueToEdit == "value") {
       if(document.getElementsByClassName("record-value")[1] != undefined) document.getElementsByClassName("record-value")[1].blur();
