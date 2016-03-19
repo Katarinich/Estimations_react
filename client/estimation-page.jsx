@@ -4,6 +4,7 @@ EstimationPage = React.createClass({
   getMeteorData() {
     return {
       blocks: Blocks.find({parentId: this.props.id}).fetch(),
+      nonDepelopmentBlocks: Blocks.find({nonDevelopment: true}).fetch(),
       estimation: Estimations.findOne({_id: this.props.id})
     }
   },
@@ -27,7 +28,15 @@ EstimationPage = React.createClass({
     });
   },
 
+  renderNonDevelopment(){
+    return this.data.nonDepelopmentBlocks.map((block) => {
+      return <EstimationNonDevelopmentItem key={block._id} block={block}/>;
+    });
+  },
+
   render() {
+    var projectTotalSum = this.data.estimation.nonDevelopmentTotalSum + this.data.estimation.developmentTotalSum;
+    var projectTotalHours = this.data.estimation.nonDevelopmentTotalHours + this.data.estimation.developmentTotalHours;
     return (
       <div className="container">
 
@@ -57,6 +66,22 @@ EstimationPage = React.createClass({
         <ul id="records">
           {this.renderBlocks()}
         </ul>
+
+        <div className="non-development-label nt-lvl-0-1"><b>Non-development Activities</b></div>
+        {this.renderNonDevelopment()}
+
+         <div className="record-line">
+            <div className="total-text-div"><b>Non-development Activities Total</b></div>
+            <div className="total-hours-div nt-lvl-0"><b>{this.data.estimation.nonDevelopmentTotalHours}h</b></div>
+            <div className="total-rate-div"></div>
+            <div className="total-sum-div"><b>{this.data.estimation.nonDevelopmentTotalSum}</b></div>
+        </div>
+        <div className="record-line">
+            <div className="total-text-div"><b>Project Total</b></div>
+            <div className="total-hours-div nt-lvl-0"><b>{projectTotalHours}h</b></div>
+            <div className="total-rate-div"></div>
+            <div className="total-sum-div"><b>{projectTotalSum}</b></div>
+        </div>
       </div>
     );
   }

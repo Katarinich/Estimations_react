@@ -5,3 +5,5 @@ Meteor.publish('blocks', function(estimationId) {
 Meteor.publish('estimations', function() {
   return Estimations.find();
 });
+
+var Typeahead = Meteor.npmRequire('react-typeahead').Typeahead;

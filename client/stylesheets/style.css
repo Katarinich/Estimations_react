@@ -9,12 +9,17 @@
   display: inline-block;
 }
 
-.record-rate-div, .record-hours-div, .record-sum-div, .column-name, .total-hours-div, .total-sum-div, .total-rate-div{
+.record-rate-div, .record-hours-div, .record-sum-div, .column-name, .total-hours-div,
+.total-sum-div, .total-rate-div, .non-development-input-div{
   vertical-align: top;
   width: 80px;
   height: 30px;
   text-align: center;
   display: inline-block;
+}
+
+.non-development-label{
+  margin-top: 60px
 }
 
 .record-value{
@@ -96,7 +101,7 @@ ul {
 }
 .nt-lvl-0-2{
     margin-left: 50px;
-    margin-right: 266px;
+    margin-right: 270px;
 }
 .nt-lvl-2{
     margin-left: 280px;

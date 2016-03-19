@@ -7,6 +7,16 @@ EstimationList = React.createClass({
     }
   },
 
+  componentDidUpdate() {
+    var deleteButtons = document.getElementsByClassName('delete');
+    for(let i = 0; i < deleteButtons.length; i++)
+      deleteButtons[i].addEventListener('click', this.deleteEstimation);
+  },
+
+  deleteEstimation(e) {
+    Meteor.call('estimationRemove', e.target.id);
+  },
+
   handleFilterInput(event) {
     var input = event.target.value;
     if (!_.isNaN(input)) {

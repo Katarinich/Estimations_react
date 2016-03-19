@@ -3,12 +3,17 @@ EstimationItem = React.createClass({
 
   getMeteorData() {
     return {
-      children: Blocks.find({parentId: this.props.block._id}, {sort: {index: 1}}).fetch()
+      childrenBlocks: Blocks.find({parentId: this.props.block._id}, {sort: {index: 1}}).fetch()
     }
   },
 
   propTypes: {
     block: React.PropTypes.object.isRequired
+  },
+
+  getInitialState: function() {
+    if(Session.get("newBlock") == this.props.block._id && this.props.block._id) return {isInput: true};
+    return {isInput: false};
   },
 
   renderInput(event) {
@@ -43,9 +48,13 @@ EstimationItem = React.createClass({
   renderChilds(){
     if(!this.props.block.isParent) return;
 
-    return this.data.children.map((block) => {
-      return <EstimationItem key={block._id} block={block} />;
-    });
+    return(
+      <ul className="child-records" id={this.props.block._id}>
+        {this.data.childrenBlocks.map((block) => {
+          return <EstimationItem key={block._id} block={block} />;
+        })}
+      </ul>
+    );
   },
 
   renderTotal() {
@@ -101,23 +110,25 @@ EstimationItem = React.createClass({
   },
 
   render() {
-    var sum = this.props.block.isParent ? "" : this.props.block.hours * this.props.block.rate;
+    var sum = this.props.block.isParent ? "" : parseInt(this.props.block.hours) * this.props.block.rate;
     var depth = "record-hours-div nt-lvl-" + this.depth();
     var valueClass = "record-value-div";
     if(this.props.block.isParent) valueClass += " parent-text";
-    if(this.props.block.value == "") valueClass += " empty"
+    if(this.props.block.value == "") valueClass += " empty";
+
+    var innerValue;
+    if (this.state.isInput) innerValue = <RecordInput block={this.props.block} valueToEdit="value"/>;
+    else innerValue = this.props.block.value;
 
     return (
       <li className="record-line">
-        <div className={valueClass} onClick={this.renderInput}>{Session.get("newBlock") == this.props.block._id ? <RecordInput block={this.props.block} valueToEdit="value"/> : this.props.block.value}</div>
+        <div className={valueClass} onClick={this.renderInput}>{innerValue}</div>
         <div className={depth} onClick={this.renderInput}>{this.props.block.hours}</div>
         <div className="record-rate-div" onClick={this.renderInput}>{this.props.block.isParent ? "" : this.props.block.rate}</div>
 	      <div className="record-sum-div">{sum}</div>
         <div className="record-delete-div"><button className="delete" onClick={this.deleteBlock}>&times;</button></div>
 
-        <ul className="child-records" id={this.props.block._id}>
-          {this.renderChilds()}
-        </ul>
+        {this.renderChilds()}
 
         {this.renderTotal()}
       </li>

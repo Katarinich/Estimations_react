@@ -1,16 +1,18 @@
 RecordInput = React.createClass({
   handleBlur: function(event) {
-    Meteor.call("blockUpdate", this.props.block._id, {[this.props.valueToEdit]: event.target.value});
-    if(this.props.parentNode) this.props.parentNode.innerHTML = event.target.value;
+    if(this.props.block[this.props.valueToEdit] != event.target.value) Meteor.call("blockUpdate", this.props.block._id, {[this.props.valueToEdit]: event.target.value});
+    if(this.props.parentNode) {
+      this.props.parentNode.innerHTML = event.target.value;
+    }
     else {
       Session.set("newBlock", null);
-      document.getElementById(this.props.block.parentId).children[this.props.block.index].children[0].innerHTML = event.target.value;
+      let parentNode = document.getElementById(this.props.block.parentId).children[this.props.block.index].children[0];
+      parentNode.innerHTML = event.target.value;
     }
   },
 
   componentDidMount: function() {
     var block = this.props.block;
-    var parentNode =  document.getElementById(this.props.block.parentId).children[this.props.block.index].children[0];
 
     Mousetrap.bind('ctrl+right', function(e, combo) {
       e.stopImmediatePropagation();
@@ -29,11 +31,7 @@ RecordInput = React.createClass({
     });
 
     var input = document.getElementsByClassName("record-" + this.props.valueToEdit)[0];
-    if(this.props.valueToEdit == "value") {
-      if(document.getElementsByClassName("record-value")[1] != undefined) document.getElementsByClassName("record-value")[1].blur();
-      Meteor.typeahead.inject();
-      input = document.getElementsByClassName("record-value")[1];
-    }
+
     input.addEventListener('blur', this.handleBlur);
     input.addEventListener('keypress', this.renderNext);
     input.focus();
@@ -53,7 +51,7 @@ RecordInput = React.createClass({
       let block = this.props.block;
       let parentNode;
       if(this.props.parentNode) parentNode = this.props.parentNode.nextSibling;
-      else parentNode = document.getElementById(this.props.block.parentId).children[this.props.block.index].children[0].nextSibling;
+      else parentNode = event.target.parentNode.nextSibling;
 
       ReactDOM.render(<RecordInput
         block={block}
