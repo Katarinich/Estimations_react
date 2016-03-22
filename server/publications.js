@@ -6,4 +6,4 @@ Meteor.publish('estimations', function() {
   return Estimations.find();
 });
 
-var Typeahead = Meteor.npmRequire('react-typeahead').Typeahead;
+//var Typeahead = Meteor.npmRequire('react-typeahead').Typeahead;
