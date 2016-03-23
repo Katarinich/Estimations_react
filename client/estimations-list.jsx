@@ -43,6 +43,20 @@ EstimationList = React.createClass({
     document.getElementsByClassName("reactive-table-input")[0].addEventListener("input", this.handleFilterInput);
   },
 
+  renderLoginButtons() {
+    return(
+      <div className="dropdown">
+        <a id="dLabel" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          Meteor.user().username
+          <span className="caret"></span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <li></li>
+        </ul>
+      </div>
+    );
+  },
+
   renderTable() {
     const ReactiveTableTemplate = BlazeToReact('reactiveTable');
     this.filter = new ReactiveTable.Filter('client-filter', ['clientName', 'name']);
@@ -92,6 +106,11 @@ EstimationList = React.createClass({
         <div className="navbar navbar-default" role="navigation">
             <div className="navbar-header">
                 <a className="navbar-brand">Estimations</a>
+            </div>
+            <div className="navbar-collapse collapse">
+                <ul className="nav navbar-nav navbar-right">
+                    {this.renderLoginButtons()}
+                </ul>
             </div>
         </div>
 
