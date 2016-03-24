@@ -20,6 +20,10 @@ Meteor.publish('blocks', function(user) {
 	}
 });
 
+Meteor.publish('blocksByEstimation', function(id) {
+	return Blocks.find({estimationId: id});
+});
+
 Meteor.publish('estimationsUsers', function () {
 	if(Roles.userIsInRole( this.userId, 'admin' )){
 		return Meteor.users.find();
@@ -28,4 +32,3 @@ Meteor.publish('estimationsUsers', function () {
 	    return this.stop();
 	}
 });
-//var Typeahead = Meteor.npmRequire('react-typeahead').Typeahead;

@@ -1,5 +1,8 @@
 accounts-base@1.2.2
 accounts-password@1.1.4
+alt:react@1.0.2
+alt:react-accounts-ui@1.2.1
+alt:react-accounts-unstyled@1.2.1
 anti:i18n@0.4.3
 aslagle:reactive-table@0.8.28
 autoupdate@1.2.4
@@ -36,7 +39,6 @@ hot-code-push@1.0.0
 html-tools@1.0.5
 htmljs@1.0.5
 http@1.1.1
-ian:accounts-ui-bootstrap-3@1.2.89
 id-map@1.0.4
 jquery@1.11.4
 jsx@0.2.3
@@ -44,6 +46,7 @@ kadira:flow-router@2.10.1
 kadira:react-layout@1.5.3
 lai:collection-extensions@0.1.4
 launch-screen@1.0.4
+less@2.5.1
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
@@ -85,7 +88,6 @@ spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4
 standard-minifiers@1.0.2
-stylus@2.511.1
 templating@1.1.5
 templating-tools@1.0.0
 thereactivestack:blazetoreact@0.1.5

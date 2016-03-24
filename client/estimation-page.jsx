@@ -5,17 +5,20 @@ EstimationPage = React.createClass({
     return {
       blocks: Blocks.find({parentId: this.props.id}).fetch(),
       nonDepelopmentBlocks: Blocks.find({nonDevelopment: true}).fetch(),
-      estimation: Estimations.findOne({_id: this.props.id})
+      estimation: Estimations.findOne({_id: this.props.id}),
+      currentUser: Meteor.user()
     }
   },
 
   handleBlur(event) {
+    if(Meteor.userId() != this.data.estimation.userId) return;
+
     Meteor.call("estimationUpdate", this.props.id, {name: event.target.value});
     event.target.parentNode.innerHTML = event.target.value;
   },
 
   renderInput(event) {
-    if(document.getElementsByClassName("list-name-input").length != 0) return;
+    if(Meteor.userId() != this.data.estimation.userId || document.getElementsByClassName("list-name-input").length != 0) return;
 
     ReactDOM.render(<input type='text' className='list-name-input form-control' defaultValue={this.data.estimation.name} />, event.target);
     document.getElementsByClassName("list-name-input")[0].addEventListener('blur', this.handleBlur);
@@ -34,6 +37,37 @@ EstimationPage = React.createClass({
     });
   },
 
+  handleSignOut() {
+    Meteor.logout();
+  },
+
+  renderLoginButtons() {
+    if(Meteor.user()) {
+      let userEmail = Meteor.user().emails[0].address;
+      return(
+        <li>
+            <a
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              onClick={this.handleSignOut}> {userEmail} | Log Out </a>
+            </li>
+      );
+    }
+    return(
+        <li id="fat-menu" className="dropdown">
+          <a id="drop3" href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Sign Up / Sign In
+            <span className="caret"></span>
+          </a>
+          <ul className="dropdown-menu" aria-labelledby="drop3">
+            <li><LoginButtons/></li>
+          </ul>
+        </li>
+    );
+  },
+
   render() {
     var projectTotalSum = this.data.estimation.nonDevelopmentTotalSum + this.data.estimation.developmentTotalSum;
     var projectTotalHours = this.data.estimation.nonDevelopmentTotalHours + this.data.estimation.developmentTotalHours;
@@ -41,6 +75,7 @@ EstimationPage = React.createClass({
       <div className="container">
 
         <ol className="breadcrumb">
+          {this.renderLoginButtons()}
             <li><a href="/estimations/">Estimations</a></li>
             <li className="active">{this.data.estimation.name}</li>
         </ol>

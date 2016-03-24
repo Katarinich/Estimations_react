@@ -13,17 +13,14 @@ EstimationList = React.createClass({
       deleteButtons[i].addEventListener('click', this.deleteEstimation);
   },
 
-  deleteEstimation(e) {
-    Meteor.call('estimationRemove', e.target.id);
+  handleSignOut() {
+    Meteor.logout(function(){
+      FlowRouter.go('/');
+    });
   },
 
-  handleFilterInput(event) {
-    var input = event.target.value;
-    if (!_.isNaN(input)) {
-        this.filter.set(input);
-    } else {
-        this.filter.set("");
-    }
+  deleteEstimation(e) {
+    Meteor.call('estimationRemove', e.target.id);
   },
 
   clearFilter(event, template) {
@@ -43,17 +40,43 @@ EstimationList = React.createClass({
     document.getElementsByClassName("reactive-table-input")[0].addEventListener("input", this.handleFilterInput);
   },
 
+  handleFilterInput(event) {
+    var input = event.target.value;
+    if (!_.isNaN(input)) {
+        this.filter.set(input);
+    } else {
+        this.filter.set("");
+    }
+  },
+
   renderLoginButtons() {
-    return(
-      <div className="dropdown">
-        <a id="dLabel" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          Meteor.user().username
-          <span className="caret"></span>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dLabel">
-          <li></li>
+    if(Meteor.user()) {
+      let userEmail = Meteor.user().emails[0].address;
+      return(
+        <ul className="nav navbar-nav navbar-right">
+          <li>
+            <a
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              onClick={this.handleSignOut}> {userEmail} | Log Out </a>
+          </li>
         </ul>
-      </div>
+      );
+    }
+    return(
+      <ul className="nav navbar-nav navbar-right">
+        <li id="fat-menu" className="dropdown">
+          <a id="drop3" href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Sign Up / Sign In
+            <span className="caret"></span>
+          </a>
+          <ul className="dropdown-menu" aria-labelledby="drop3">
+            <li><LoginButtons/></li>
+          </ul>
+        </li>
+      </ul>
     );
   },
 
@@ -107,11 +130,7 @@ EstimationList = React.createClass({
             <div className="navbar-header">
                 <a className="navbar-brand">Estimations</a>
             </div>
-            <div className="navbar-collapse collapse">
-                <ul className="nav navbar-nav navbar-right">
-                    {this.renderLoginButtons()}
-                </ul>
-            </div>
+            {this.renderLoginButtons()}
         </div>
 
         <div className="search-label"><b>Search:</b> </div>
