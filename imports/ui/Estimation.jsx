@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-// Task component - represents a single todo item
 export default class Estimation extends Component {
   render() {
     return (

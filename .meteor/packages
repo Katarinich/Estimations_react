@@ -19,3 +19,9 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 kadira:flow-router
 accounts-ui
+react-meteor-data
+thereactivestack:blazetoreact
+aslagle:reactive-table
+momentjs:moment
+twbs:bootstrap
+accounts-password

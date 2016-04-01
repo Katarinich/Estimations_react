@@ -1,0 +1,243 @@
+li.placeholder { background: rgb(255,240,120);}
+li.placeholder:before {
+  content: "Drop here"; color: rgb(225,210,90);
+}
+
+.record-line{
+  margin-top: 10px;
+}
+
+.record-value-div, .total-text-div{
+  vertical-align: top;
+	height: 30px;
+  width: 400px;
+  display: inline-block;
+}
+
+.record-rate-div, .record-hours-div, .record-sum-div, .column-name, .total-hours-div,
+.total-sum-div, .total-rate-div, .non-development-input-div{
+  vertical-align: top;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  display: inline-block;
+}
+
+.non-development-label{
+  margin-top: 60px
+}
+
+.record-value{
+  height: 30px;
+  width: 400px;
+  display: inline;
+}
+
+.record-hours, .record-rate, .record-sum, .non-development-input{
+    width: 80px;
+    height: 30px;
+    display: inline;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.create-new-list-div{
+	position: relative;
+  display: inline-block;
+  text-align: right;
+  margin-top: 7px;
+  margin-left: 15px;
+}
+
+.delete, .clear-filter{
+  font-weight: bold;
+  background: none;
+  font-size: 1em;
+  border: none;
+  display: inline-block;
+  position: relative;
+}
+
+.client-filter-input{
+  width: 900px;
+  display: inline-block;
+  height: 35px;
+}
+
+.search-label{
+  width: 60px;
+  display: inline-block;
+}
+
+.list-name-div, .client-name-div{
+  display: inline-block;
+  width: 49%;
+  margin-bottom: 15px;
+}
+
+.list-name-label, .client-name-label{
+  display: inline-block;
+}
+
+.names{
+  margin-bottom: 30px;
+}
+
+.list-name, .client-name{
+  padding-left: 5px;
+  text-align: left;
+  display: inline-block;
+}
+
+.efforts{
+  margin-left: 800px;
+}
+
+.nt-lvl-0{
+    margin-left: 360px;
+}
+.nt-lvl-1{
+    margin-left: 320px;
+}
+.nt-lvl-0-1{
+    margin-right: 320px;
+}
+.nt-lvl-0-2{
+    margin-left: 50px;
+    margin-right: 270px;
+}
+.nt-lvl-2{
+    margin-left: 280px;
+}
+.nt-lvl-3{
+    margin-left: 240px;
+}
+.nt-lvl-4{
+    margin-left: 200px;
+}
+
+.parent-text{
+  font-weight: bold;
+}
+
+.empty{
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: grey;
+}
+
+.record-delete-div{
+  display: inline;
+}
+
+#login-email {
+    margin: 0 0 -1px;
+    border-radius: 0px;
+    position: relative;
+    z-index: 1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#login-password {
+    margin: 0 0 -1px;
+    border-radius: 0px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#login-screen .dropdown-menu {
+  display: block;
+  position: relative;
+  height: 245px;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+#login-screen #login-dropdown-list {
+  display: block;
+}
+
+/* Hides the toggle that you click on */
+
+#login-screen a.dropdown-toggle {
+  display: none;
+}
+
+#login-button, #back-to-login-link, #login-buttons-forgot-password, #login-buttons-password{
+  margin-top: 5px;
+}
+
+#forgot-password-link, #signup-link {
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.login-buttons {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.register{
+  width: 300px;
+  padding: 15px;
+}
+
+.user-controls{
+  display: inline;
+}
+
+.tt-menu {
+  width: 422px;
+  margin: 12px 0;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+.comment{
+    margin-top: 5px;
+    width: 400px;
+}
+
+.save-comment, .cancel-comment{
+    margin-top: 5px;
+    margin-right: 5px;
+}
