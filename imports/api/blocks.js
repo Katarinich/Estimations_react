@@ -1,6 +1,14 @@
 import { Mongo } from 'meteor/mongo';
 
+import { Estimations } from '../api/estimations.js';
+
 export const Blocks = new Mongo.Collection('blocks');
+
+if (Meteor.isServer) {
+  Meteor.publish('blocks', function blocksPublication(estimationId) {
+    return Blocks.find({estimationId: estimationId});
+  });
+}
 
 Meteor.methods({
   blockUpdate: function(blockId, updates) {

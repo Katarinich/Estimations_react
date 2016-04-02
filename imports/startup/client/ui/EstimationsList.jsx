@@ -1,12 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Estimations } from '../api/estimations.js';
+import { Estimations } from '../../../api/estimations.js';
 
-import Estimation from './Estimation.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 class EstimationsList extends Component {
+  componentDidUpdate() {
+    var deleteButtons = document.getElementsByClassName('delete');
+    for(let i = 0; i < deleteButtons.length; i++)
+      deleteButtons[i].addEventListener('click', this.deleteEstimation);
+  }
+
+  deleteEstimation(e) {
+    Meteor.call('estimationRemove', e.target.id);
+  }
 
   handleCreateNew(event) {
     Meteor.call('estimationInsert', function(error) {
@@ -14,6 +22,11 @@ class EstimationsList extends Component {
         throwError(error.reason);
       }
     });
+  }
+
+  clearFilter(event, template) {
+    this.filter.set("");
+    document.getElementById("client-filter").value = "";
   }
 
   renderTable() {

@@ -7,10 +7,14 @@ li.placeholder:before {
   margin-top: 10px;
 }
 
-.record-value-div, .total-text-div{
+#records {
+  padding-left: 0px;
+}
+
+.record-value-div, .total-text-div {
   vertical-align: top;
 	height: 30px;
-  width: 400px;
+  width: 440px;
   display: inline-block;
 }
 
@@ -29,7 +33,7 @@ li.placeholder:before {
 
 .record-value{
   height: 30px;
-  width: 400px;
+  width: 440px;
   display: inline;
 }
 
@@ -105,8 +109,8 @@ ul {
     margin-right: 320px;
 }
 .nt-lvl-0-2{
-    margin-left: 50px;
-    margin-right: 270px;
+    margin-left: 40px;
+    margin-right: 240px;
 }
 .nt-lvl-2{
     margin-left: 280px;
